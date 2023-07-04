@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5fa3ejx0p4tr"]
+
+[ext_resource type="PackedScene" uid="uid://btv6bbg2tesm0" path="res://entities/enemies/fly/fly.tscn" id="1_a80fx"]
+[ext_resource type="Script" path="res://entities/enemies/fly/shooting.gd" id="3_efs6q"]
+
+[node name="SuperFly" instance=ExtResource("1_a80fx")]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+modulate = Color(0.698039, 1, 0.388235, 1)
+
+[node name="Shooting" type="Marker2D" parent="." index="4"]
+script = ExtResource("3_efs6q")
+
+[node name="Timer" type="Timer" parent="Shooting" index="0"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Shooting/Timer" to="Shooting" method="_on_timer_timeout"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cddnraqlfiu2o"]
+
+[ext_resource type="Script" path="res://entities/enemies/health.gd" id="1_j7uej"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdue3"]
+bg_color = Color(0.6, 0.14902, 0.14902, 1)
+
+[node name="Health" type="ProgressBar"]
+offset_left = -48.0
+offset_top = -88.0
+offset_right = 48.0
+offset_bottom = -61.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_sdue3")
+value = 100.0
+script = ExtResource("1_j7uej")

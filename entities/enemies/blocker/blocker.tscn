@@ -1,0 +1,294 @@
+[gd_scene load_steps=20 format=3 uid="uid://injeguhgjadb"]
+
+[ext_resource type="Script" path="res://entities/enemies/blocker/blocker.gd" id="1_4dbax"]
+[ext_resource type="Script" path="res://entities/enemies/damage_area.gd" id="2_4o1sk"]
+[ext_resource type="Texture2D" uid="uid://bbr8s66tq21tl" path="res://assets/kenney_platformer-art-deluxe/Base pack/Enemies/blockerMad.png" id="2_g1ote"]
+[ext_resource type="Shader" path="res://entities/res/hue_shift.gdshader" id="2_osgjg"]
+[ext_resource type="Script" path="res://entities/animation_player_hurt.gd" id="3_pjl2h"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_hit_detection.gd" id="4_2jc5b"]
+[ext_resource type="PackedScene" uid="uid://cddnraqlfiu2o" path="res://entities/enemies/health.tscn" id="5_alwxa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38ixr"]
+size = Vector2(48, 48)
+
+[sub_resource type="Animation" id="Animation_h48qi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/shift")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_osgjg")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.243137, 0.243137, 0.243137, 0.592157)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_r3c5x"]
+resource_name = "chase"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/shift")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.2]
+}
+
+[sub_resource type="Animation" id="Animation_u3bat"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.243137, 0.243137, 0.243137, 0.592157)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 24)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_sws2q"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/shift")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g2gxv"]
+_data = {
+"RESET": SubResource("Animation_h48qi"),
+"chase": SubResource("Animation_r3c5x"),
+"dead": SubResource("Animation_u3bat"),
+"idle": SubResource("Animation_sws2q")
+}
+
+[sub_resource type="Animation" id="Animation_rqrfm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qppkx"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.490196), Color(1, 1, 1, 1), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 1), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i10qi"]
+_data = {
+"RESET": SubResource("Animation_rqrfm"),
+"hurt": SubResource("Animation_qppkx")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aywva"]
+shader = ExtResource("2_osgjg")
+shader_parameter/shift = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1v4h6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g1ote")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqoih"]
+
+[node name="Blocker" type="CharacterBody2D"]
+script = ExtResource("1_4dbax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_38ixr")
+
+[node name="DamageArea" type="Area2D" parent="." groups=["enemy_damage"]]
+script = ExtResource("2_4o1sk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_38ixr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_g2gxv")
+}
+
+[node name="AnimationPlayerHurt" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_i10qi")
+}
+script = ExtResource("3_pjl2h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.243137, 0.243137, 0.243137, 0.592157)
+material = SubResource("ShaderMaterial_aywva")
+sprite_frames = SubResource("SpriteFrames_1v4h6")
+animation = &"idle"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(0, 0)
+
+[node name="HitDetection" type="Area2D" parent="."]
+position = Vector2(0, -32)
+script = ExtResource("4_2jc5b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
+position = Vector2(0, -48)
+shape = SubResource("RectangleShape2D_uqoih")
+
+[node name="Health" parent="." instance=ExtResource("5_alwxa")]
+
+[connection signal="animation_finished" from="AnimationPlayerHurt" to="DamageArea" method="_on_animation_player_hurt_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayerHurt" to="DamageArea" method="_on_animation_player_hurt_animation_started"]
+[connection signal="take_damage" from="HitDetection" to="Health" method="on_take_damage"]
+[connection signal="dead" from="Health" to="." method="_on_health_dead"]
+[connection signal="hurt" from="Health" to="AnimationPlayerHurt" method="_on_health_hurt"]

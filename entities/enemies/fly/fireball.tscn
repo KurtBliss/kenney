@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdjyt0erri6mp"]
+
+[ext_resource type="Texture2D" uid="uid://cgn2qnk6ns4mq" path="res://assets/kenney_platformer-art-deluxe/Base pack/Items/fireball.png" id="1_k36bt"]
+[ext_resource type="Script" path="res://entities/enemies/fly/fireball.gd" id="2_uh001"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d0me"]
+atlas = ExtResource("1_k36bt")
+region = Rect2(0, 0, 70, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ux7ik"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d0me")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8sr70"]
+
+[node name="Fireball" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ux7ik")
+script = ExtResource("2_uh001")
+
+[node name="Area2D" type="Area2D" parent="." groups=["fireball"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_8sr70")

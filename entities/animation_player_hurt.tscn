@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvhuks0aecfvd"]
+
+[ext_resource type="Script" path="res://entities/animation_player_hurt.gd" id="1_bfukf"]
+
+[sub_resource type="Animation" id="Animation_rqrfm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qppkx"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.490196), Color(1, 1, 1, 1), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 1), Color(1, 1, 1, 0.490196), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i10qi"]
+_data = {
+"RESET": SubResource("Animation_rqrfm"),
+"hurt": SubResource("Animation_qppkx")
+}
+
+[node name="AnimationPlayerHurt" type="AnimationPlayer"]
+root_node = NodePath("../CollisionShape2D")
+libraries = {
+"": SubResource("AnimationLibrary_i10qi")
+}
+script = ExtResource("1_bfukf")

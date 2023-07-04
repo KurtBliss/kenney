@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://vi72b5306wie"]
+
+[ext_resource type="Curve" uid="uid://b37ixvaj1w1bj" path="res://entities/trail/temp.tres" id="1_8pqfw"]
+[ext_resource type="Script" path="res://entities/trail/trail.gd" id="2_r3uhb"]
+
+[sub_resource type="Gradient" id="Gradient_l6iiu"]
+colors = PackedColorArray(0, 0, 0, 0.607843, 0.545098, 0.811765, 0.729412, 1)
+
+[node name="Trail" type="Line2D"]
+top_level = true
+z_index = -5
+points = PackedVector2Array(0, 0, 88, 0)
+width = 24.611
+width_curve = ExtResource("1_8pqfw")
+gradient = SubResource("Gradient_l6iiu")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("2_r3uhb")

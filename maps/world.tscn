@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmfhgqcoe2qdm"]
+
+[ext_resource type="Texture2D" uid="uid://pmq8lqdvjem0" path="res://assets/kenney_platformer-art-deluxe/Base pack/Tiles/boxEmpty.png" id="1_8df3d"]
+[ext_resource type="Script" path="res://maps/level.gd" id="1_lebf7"]
+[ext_resource type="PackedScene" uid="uid://deqq4ee87jxdi" path="res://entities/player/player.tscn" id="2_npnk5"]
+[ext_resource type="PackedScene" uid="uid://injeguhgjadb" path="res://entities/enemies/blocker/blocker.tscn" id="3_3pc06"]
+[ext_resource type="Texture2D" uid="uid://cygjlfvchnx2d" path="res://assets/kenney_platformer-art-deluxe/Base pack/Items/spikes.png" id="3_l8iof"]
+[ext_resource type="PackedScene" uid="uid://btv6bbg2tesm0" path="res://entities/enemies/fly/fly.tscn" id="4_36r76"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_po341"]
+resource_name = "Box"
+texture = ExtResource("1_8df3d")
+texture_region_size = Vector2i(70, 70)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-35, -35, 35, -35, 35, 35, -35, 35)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v5k7x"]
+resource_name = "Spike"
+texture = ExtResource("3_l8iof")
+texture_region_size = Vector2i(70, 70)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-35, 0, 35, -0.5, 35, 35, -35, 35)
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSet" id="TileSet_mai0k"]
+tile_size = Vector2i(70, 70)
+physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "spike"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_po341")
+sources/3 = SubResource("TileSetAtlasSource_v5k7x")
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_lebf7")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_mai0k")
+format = 2
+layer_0/tile_data = PackedInt32Array(458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458752, 0, 0, 524287, 0, 0, 393223, 0, 0, 327687, 0, 0, 524284, 0, 0, 524283, 0, 0, 524282, 0, 0, 524281, 0, 0, 524280, 0, 0, 524279, 0, 0, 524278, 0, 0, 524277, 0, 0, 524275, 0, 0, 524276, 0, 0, 589815, 0, 0, 655351, 0, 0, 458746, 3, 0, 458745, 3, 0, 458744, 3, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_npnk5")]
+position = Vector2(245, 426)
+
+[node name="Blocker" parent="." instance=ExtResource("3_3pc06")]
+position = Vector2(885, 451)
+
+[node name="Fly" parent="." instance=ExtResource("4_36r76")]
+position = Vector2(775, 173)

@@ -1,0 +1,130 @@
+[gd_scene load_steps=14 format=3 uid="uid://btv6bbg2tesm0"]
+
+[ext_resource type="Script" path="res://entities/enemies/fly/fly.gd" id="1_h1t15"]
+[ext_resource type="Texture2D" uid="uid://85vs18m6pxtl" path="res://assets/kenney_platformer-art-deluxe/Base pack/Enemies/flyFly1.png" id="2_exqti"]
+[ext_resource type="Script" path="res://entities/enemies/damage_area.gd" id="2_pxfmc"]
+[ext_resource type="Texture2D" uid="uid://c1d307sys7kkw" path="res://assets/kenney_platformer-art-deluxe/Base pack/Enemies/flyFly2.png" id="3_5kaxu"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_hit_detection.gd" id="4_aklsa"]
+[ext_resource type="PackedScene" uid="uid://dvhuks0aecfvd" path="res://entities/animation_player_hurt.tscn" id="5_7xi74"]
+[ext_resource type="PackedScene" uid="uid://cddnraqlfiu2o" path="res://entities/enemies/health.tscn" id="5_btn7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7c1f"]
+size = Vector2(16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jafic"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_exqti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5kaxu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r71xy"]
+
+[sub_resource type="Animation" id="Animation_xnfds"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p353s"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.14159]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.25098, 0.25098, 0.25098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_npkpb"]
+_data = {
+"RESET": SubResource("Animation_xnfds"),
+"dead": SubResource("Animation_p353s")
+}
+
+[node name="Fly" type="CharacterBody2D"]
+script = ExtResource("1_h1t15")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i7c1f")
+
+[node name="DamageArea" type="Area2D" parent="." groups=["enemy_damage"]]
+script = ExtResource("2_pxfmc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_i7c1f")
+debug_color = Color(0.964706, 0.0235294, 0.470588, 0.419608)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jafic")
+
+[node name="HitDetection" type="Area2D" parent="."]
+position = Vector2(0, -56)
+script = ExtResource("4_aklsa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetection"]
+shape = SubResource("RectangleShape2D_r71xy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_npkpb")
+}
+
+[node name="AnimationPlayerHurt" parent="." instance=ExtResource("5_7xi74")]
+
+[node name="Health" parent="." instance=ExtResource("5_btn7j")]
+max_value = 25.0
+value = 25.0
+
+[connection signal="body_entered" from="HitDetection" to="HitDetection" method="_on_body_entered"]
+[connection signal="take_damage" from="HitDetection" to="Health" method="_on_hit_detection_take_damage"]
+[connection signal="animation_finished" from="AnimationPlayerHurt" to="DamageArea" method="_on_animation_player_hurt_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayerHurt" to="DamageArea" method="_on_animation_player_hurt_animation_started"]
+[connection signal="dead" from="Health" to="." method="_on_health_dead"]
+[connection signal="hurt" from="Health" to="AnimationPlayerHurt" method="_on_health_hurt"]

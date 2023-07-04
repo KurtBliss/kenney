@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://4kqho3vv1oaj"]
+
+[ext_resource type="Texture2D" uid="uid://em88fqilhexf" path="res://assets/kenney_platformer-art-deluxe/Base pack/Vector/tiles.svg" id="1_ixckv"]
+[ext_resource type="Script" path="res://entities/sign/sign.gd" id="1_kdhoe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p75lf"]
+
+[node name="Sign" type="Area2D"]
+script = ExtResource("1_kdhoe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p75lf")
+debug_color = Color(0.666667, 0.513726, 0, 0.419608)
+
+[node name="Sign" type="Sprite2D" parent="."]
+texture = ExtResource("1_ixckv")
+region_enabled = true
+region_rect = Rect2(1040, 747, 71, 70)
+
+[node name="Zoom" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(4, -125)
+scale = Vector2(3.94718, 4.5)
+texture = ExtResource("1_ixckv")
+region_enabled = true
+region_rect = Rect2(1040, 747, 71, 70)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -107.0
+offset_top = -243.0
+offset_right = 118.0
+offset_bottom = -86.0
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
