@@ -1,14 +1,14 @@
 extends Area2D
 @onready var player = $".."
-@onready var animation_player = $"../AnimationPlayerHurt"
+@onready var modulate_player = $"../ModulatePlayer"
 var test_area : Area2D
 var test_damage : float = 0.0
 @onready var timer = $Timer
 
 func take_damage(dmg, speed = 1):
-	if animation_player.current_animation != "hurt":
+	if modulate_player.current_animation != "hurt":
 		player.health -= dmg
-		animation_player.play("hurt", -1, speed)
+		modulate_player.play("hurt", -1, speed)
 
 func _on_area_entered(area):
 	if area.is_in_group("fireball"):

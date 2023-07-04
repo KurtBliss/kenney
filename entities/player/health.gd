@@ -1,5 +1,4 @@
 extends Node
-
 @onready var player = $".."
 @onready var camera_2d = $"../Camera2D"
 

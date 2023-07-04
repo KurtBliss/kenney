@@ -2,6 +2,8 @@ extends Camera2D
 @onready var player = $".."
 @onready var starting_zoom = zoom
 
+var last_ground_position := 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -15,12 +17,17 @@ func _process(delta):
 	if is_instance_valid(player) and not player is Player:
 		return
 	
-	var high_top = 648 * 5.5
-	var high_cur = player.position.y - player.jump_start
+	if player.is_on_floor():
+		last_ground_position = player.position.y
 	
-	if player.jumping and high_cur:
-		var multi = high_cur / high_top / 2
+	var high_top = 648 * 3
+	var high_cur = player.position.y - last_ground_position #- player.jump_start
+	
+#	if player.jumping and high_cur:
+	if (not player.position.y > last_ground_position) and high_cur:
+		var multi = high_cur / high_top / 1.2
 		multi = max(multi, -0.15)
+		# ? delta or delta * 60
 		zoom = zoom.lerp(Vector2(starting_zoom.x + multi, starting_zoom.y + multi), 1)
 	zoom = zoom.lerp(starting_zoom, 0.1)
 

@@ -21,4 +21,5 @@ func type_default(player : Player):
 	print(fall_boast)
 	emit_signal("take_damage", 10 + fall_boast)
 	player.velocity.y = player.JUMP_VELOCITY
+	player.state_helper.reset("air")
 	player.is_doward = false

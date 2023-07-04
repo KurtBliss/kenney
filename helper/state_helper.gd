@@ -22,7 +22,7 @@ func physics_idle():
 """
 
 # Default state will just had the process_init function
-@export var states = ["init"]
+@export var states : Array[String] = ["init"]
 
 # This will be added to the state's prefix when set
 @export var prefix = "process_"
@@ -62,6 +62,7 @@ func add(process):
 		if states.has(process):
 			return
 		states.append(process)
+		
 
 # Remove process from state
 func remove(process):
@@ -71,4 +72,4 @@ func remove(process):
 	else:
 		var f = states.find(process)
 		if f == -1: return
-		states.remove(f)
+		states.remove_at(f)
