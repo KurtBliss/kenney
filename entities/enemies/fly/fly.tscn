@@ -122,9 +122,14 @@ libraries = {
 max_value = 25.0
 value = 25.0
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="body_entered" from="HitDetection" to="HitDetection" method="_on_body_entered"]
 [connection signal="take_damage" from="HitDetection" to="Health" method="_on_hit_detection_take_damage"]
 [connection signal="animation_finished" from="AnimationPlayerHurt" to="DamageArea" method="_on_animation_player_hurt_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayerHurt" to="DamageArea" method="_on_animation_player_hurt_animation_started"]
 [connection signal="dead" from="Health" to="." method="_on_health_dead"]
 [connection signal="hurt" from="Health" to="AnimationPlayerHurt" method="_on_health_hurt"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

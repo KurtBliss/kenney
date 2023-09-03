@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://deqq4ee87jxdi"]
+[gd_scene load_steps=47 format=3 uid="uid://deqq4ee87jxdi"]
 
 [ext_resource type="Texture2D" uid="uid://b5ocy6fa5kxjj" path="res://assets/kenney_platformer-art-deluxe/Base pack/Player/p1_duck.png" id="1_ah3rw"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_impkp"]
@@ -373,6 +373,94 @@ _data = {
 "duck": SubResource("Animation_cpm4c")
 }
 
+[sub_resource type="Animation" id="Animation_msn1m"]
+resource_name = "on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:collision_mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_qgaey"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:collision_mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_b2npr"]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:collision_layer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:collision_mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qil2y"]
+_data = {
+"RESET": SubResource("Animation_qgaey"),
+"off": SubResource("Animation_b2npr"),
+"on": SubResource("Animation_msn1m")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7c4r"]
 bg_color = Color(0.7, 0.06, 0.04, 1)
 
@@ -380,7 +468,7 @@ bg_color = Color(0.7, 0.06, 0.04, 1)
 size = Vector2(80, 116)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmmuw"]
-size = Vector2(80, 56)
+size = Vector2(64, 48)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fyg2r"]
 emission_shape = 1
@@ -401,6 +489,8 @@ width = 16
 height = 16
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_impkp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -417,6 +507,12 @@ libraries = {
 script = ExtResource("19_thvwm")
 
 [node name="ModulatePlayer" parent="." instance=ExtResource("2_pd1gj")]
+
+[node name="Slide" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SpritePlayer")
+libraries = {
+"": SubResource("AnimationLibrary_qil2y")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p7ted")
@@ -445,6 +541,11 @@ script = ExtResource("18_v5gwb")
 [node name="Health" type="Node" parent="."]
 script = ExtResource("19_jv1va")
 
+[node name="SlideArea" type="Area2D" parent="." groups=["slide"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlideArea"]
+shape = SubResource("RectangleShape2D_p7ted")
+
 [node name="HitDetection" type="Area2D" parent="."]
 visible = false
 script = ExtResource("21_lxqv2")
@@ -462,7 +563,7 @@ collision_mask = 2
 script = ExtResource("26_lb1i6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanStand"]
-position = Vector2(0, -28)
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_xmmuw")
 debug_color = Color(0.843137, 0.376471, 0.188235, 0.419608)
 

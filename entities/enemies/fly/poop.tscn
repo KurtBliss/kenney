@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c34lunu62emln"]
+
+[ext_resource type="Script" path="res://entities/enemies/fly/poop.gd" id="1_8trde"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_001tr"]
+size = Vector2(40, 40)
+
+[node name="Poop" type="Area2D" groups=["poop"]]
+script = ExtResource("1_8trde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_001tr")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(2, -13)
+scale = Vector2(3.4, 2.96)
+color = Color(0.305882, 0.101961, 0.0235294, 1)
+polygon = PackedVector2Array(0, 0, 5, 10, -3, 7, -6, 3, -2, -2)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

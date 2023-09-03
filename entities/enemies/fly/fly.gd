@@ -10,6 +10,7 @@ var startY = 0  # The starting Y position of the fly
 var health = 100
 @onready var animation_player_hurt = $AnimationPlayerHurt
 @onready var animation_player = $AnimationPlayer
+var poop_scene = preload("res://entities/enemies/fly/poop.tscn")
 
 
 func _ready():
@@ -48,3 +49,10 @@ func _on_health_dead():
 		return
 	state = STATE_DEAD
 	animation_player.play("dead")
+
+
+func _on_timer_timeout():
+	var poop = poop_scene.instantiate()
+	ref.level.add_child(poop)
+	poop.global_position = global_position
+	poop.rotation_degrees = signf(velocity.x)

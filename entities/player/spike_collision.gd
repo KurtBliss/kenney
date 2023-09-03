@@ -17,7 +17,6 @@ func _process(delta):
 		dmg = ease(dmg, curve)
 		var spd = 1
 		if dmg > 0.01:
-			print(dmg)
 			emit_signal("spike_collision", dmg * 70, spd)
 			
 	previous_landed = landed

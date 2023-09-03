@@ -223,7 +223,8 @@ _data = {
 "hurt": SubResource("Animation_qppkx")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aywva"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ayabn"]
+resource_local_to_scene = true
 shader = ExtResource("2_osgjg")
 shader_parameter/shift = 0.0
 
@@ -269,7 +270,7 @@ script = ExtResource("3_pjl2h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.243137, 0.243137, 0.243137, 0.592157)
-material = SubResource("ShaderMaterial_aywva")
+material = SubResource("ShaderMaterial_ayabn")
 sprite_frames = SubResource("SpriteFrames_1v4h6")
 animation = &"idle"
 

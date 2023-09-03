@@ -1,0 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+[] ?shoes power up for less damage on spikes
+[] ?helment can crack
+[] add deed screen
+[] ease camera down little bit during high jump
+[] downard jump can destroy certain type of platforms
+[] ?jump charge can also give movement boast?
+[] ?charge jump boast if you jump when char flashes?
+[] player scale goes up and down slighty while running
+[] player flatens temporarly when landing, even more for dawnard jump
+[] enemies that turn spike on and off on their head on interval
+[] can only bounce of enemies if you press jump button?
